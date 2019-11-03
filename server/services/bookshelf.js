@@ -19,7 +19,8 @@ var User = bookshelf.Model.extend({
 
 var Item = bookshelf.Model.extend({
   requireFetch: false,
-  tableName: "item"
+  tableName: "item",
+  hasTimestamps: true
 });
 
 module.exports = { User, Item };

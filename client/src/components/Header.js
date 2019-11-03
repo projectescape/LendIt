@@ -14,7 +14,6 @@ class Header extends React.Component {
         title={"Welcome " + this.props.auth.firstName}
         id="basic-nav-dropdown"
       >
-        {/* <LinkContainer to="/orders"> */}
         <NavDropdown.Item
           onClick={() => {
             this.props.history.push("/orders");
@@ -22,10 +21,14 @@ class Header extends React.Component {
         >
           Orders
         </NavDropdown.Item>
-        {/* </LinkContainer> */}
-
+        <NavDropdown.Item
+          onClick={() => {
+            this.props.history.push("/add/item");
+          }}
+        >
+          Add Items
+        </NavDropdown.Item>
         <NavDropdown.Divider />
-        {/* <LinkContainer to="/api/logout"> */}
         <NavDropdown.Item
           onClick={async () => {
             await fetch("/api/logout");
@@ -34,7 +37,6 @@ class Header extends React.Component {
         >
           Logout
         </NavDropdown.Item>
-        {/* </LinkContainer> */}
       </NavDropdown>
     );
   }

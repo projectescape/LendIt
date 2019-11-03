@@ -4,7 +4,8 @@ import { fetchUser } from "../actions";
 import { Container } from "react-bootstrap";
 import Header from "./Header";
 
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ItemForm from "./ItemForm";
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,7 +17,13 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Header />
-        <Container></Container>
+        <Container className="mt-3">
+          <Switch>
+            <Route path="/add/item">
+              <ItemForm />
+            </Route>
+          </Switch>
+        </Container>
       </BrowserRouter>
     );
   }
