@@ -14,6 +14,7 @@ module.exports = app => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
+      console.log("Inside server /auth/google/callback");
       res.redirect("/");
     }
   );
@@ -21,7 +22,7 @@ module.exports = app => {
   app.get("/api/logout", (req, res) => {
     // function added by passport
     req.logout();
-    res.send(req.user);
+    res.redirect("/auth/Success");
   });
 
   app.get("/api/current_user", (req, res) => {
