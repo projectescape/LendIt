@@ -1,7 +1,7 @@
 export default function(state = null, action) {
   switch (action.type) {
-    case "fetch_user":
-      console.log("inside fetch user reducer");
+    case "fetch_items":
+      console.log("inside fetch item reducer");
 
       return action.payload || false;
     default:

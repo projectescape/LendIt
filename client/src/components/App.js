@@ -6,6 +6,7 @@ import Header from "./Header";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ItemForm from "./ItemForm";
+import ItemList from "./ItemList";
 
 class App extends React.Component {
   componentDidMount() {
@@ -19,6 +20,9 @@ class App extends React.Component {
         <Header />
         <Container className="mt-3">
           <Switch>
+            <Route path="/" exact>
+              <ItemList />
+            </Route>
             <Route path="/add/item">
               <ItemForm />
             </Route>
