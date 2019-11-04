@@ -1,4 +1,5 @@
 const passport = require("passport");
+const { User } = require("../services/bookshelf");
 
 module.exports = app => {
   app.get(
@@ -22,5 +23,15 @@ module.exports = app => {
 
   app.get("/api/current_user", (req, res) => {
     res.send(req.user);
+  });
+
+  app.put("/api/user", async (req, res) => {
+    const user = await User.where("email", req.user.email).save(
+      {
+        ...req.body
+      },
+      { patch: true }
+    );
+    res.send(user);
   });
 };

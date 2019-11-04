@@ -28,8 +28,8 @@ class ItemForm extends React.Component {
         description: this.state.description,
         name: this.state.itemName
       })
-      .then(item => {
-        console.log(item.data);
+      .then(() => {
+        this.props.history.push("/");
       })
       .catch(err => console.error(err));
   };

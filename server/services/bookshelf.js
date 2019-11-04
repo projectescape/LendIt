@@ -23,4 +23,10 @@ var Item = bookshelf.Model.extend({
   hasTimestamps: true
 });
 
-module.exports = { User, Item };
+var Order = bookshelf.Model.extend({
+  requireFetch: false,
+  tableName: "order",
+  hasTimestamps: true
+});
+
+module.exports = { User, Item, Order };

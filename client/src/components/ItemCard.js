@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button, Collapse } from "react-bootstrap";
+import moment from "moment";
 
 class ItemCard extends React.Component {
   state = {
@@ -36,8 +37,12 @@ class ItemCard extends React.Component {
             ₹ {this.props.item.price} per month
           </Card.Text>
           {this.renderDescription()}
-          <Button variant="primary btn-block btn-info mt-2">Place Order</Button>
+          <Button variant="primary btn-block btn-info mt-3">Place Order</Button>
         </Card.Body>
+        <Card.Footer className="text-muted">
+          Added{" "}
+          {moment(this.props.item.created_at, "YYYY-MM-DD HH:mm:ss").fromNow()}
+        </Card.Footer>
       </Card>
     );
   }

@@ -9,6 +9,7 @@ class Header extends React.Component {
     if (this.props.auth === false || this.props.auth === null) {
       return <Nav.Link href="/auth/google">Login</Nav.Link>;
     }
+
     return (
       <NavDropdown
         title={"Welcome " + this.props.auth.firstName}
@@ -20,6 +21,13 @@ class Header extends React.Component {
           }}
         >
           Orders
+        </NavDropdown.Item>
+        <NavDropdown.Item
+          onClick={() => {
+            this.props.history.push("/user/edit");
+          }}
+        >
+          Edit User
         </NavDropdown.Item>
         <NavDropdown.Item
           onClick={() => {
