@@ -12,11 +12,15 @@ class ItemList extends React.Component {
       this.props.fetchItems();
       return null;
     }
-    console.log(this.props.items);
-    // console.log(typeof this.props.items.updated_at);
-    return this.props.items.map(item => {
-      return <ItemCard item={item} key={item.id} />;
-    });
+    return this.props.items
+      .filter(item => {
+        if (item.status === "available" || item.status === "inCart")
+          return true;
+        return false;
+      })
+      .map(item => {
+        return <ItemCard item={item} key={item.id} />;
+      });
   }
 
   render() {

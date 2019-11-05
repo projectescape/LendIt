@@ -1,19 +1,20 @@
 import React from "react";
 import { Card, Button, Collapse } from "react-bootstrap";
 import moment from "moment";
+import { connect } from "react-redux";
+import { addToCart, removeFromCart, toggleCart } from "../actions";
 
 class ItemCard extends React.Component {
   state = {
     open: false,
     setOpen: false
   };
-  renderDescription(item) {
+  renderDescription() {
     if (this.props.item.description === "") return null;
     return (
       <>
         <Button
           className="btn-secondary btn-block "
-          style={{ borderRadius: "0" }}
           onClick={() => this.setState({ open: !this.state.open })}
           aria-controls="example-collapse-text"
           aria-expanded={this.state.open}
@@ -21,9 +22,42 @@ class ItemCard extends React.Component {
           Description
         </Button>
         <Collapse in={this.state.open}>
-          <div id="example-collapse-text">{this.props.item.description}</div>
+          <div id="example-collapse-text ">{this.props.item.description}</div>
         </Collapse>
       </>
+    );
+  }
+
+  renderCartButton() {
+    if (this.props.item.status === "inCart") {
+      return (
+        <Button
+          variant="danger btn-block btn-info mt-3 disabled"
+          onClick={() => {
+            this.props.removeFromCart({ id: this.props.item.id });
+            this.props.toggleCart({ id: this.props.item.id });
+            this.setState({});
+          }}
+        >
+          Remove from Cart
+        </Button>
+      );
+    }
+    return (
+      <Button
+        variant="primary btn-block btn-info mt-3"
+        onClick={() => {
+          this.props.addToCart({
+            id: this.props.item.id,
+            name: this.props.item.name,
+            price: this.props.item.price
+          });
+          this.props.toggleCart({ id: this.props.item.id });
+          this.setState({});
+        }}
+      >
+        Add to Cart
+      </Button>
     );
   }
 
@@ -37,7 +71,7 @@ class ItemCard extends React.Component {
             ₹ {this.props.item.price} per month
           </Card.Text>
           {this.renderDescription()}
-          <Button variant="primary btn-block btn-info mt-3">Place Order</Button>
+          {this.renderCartButton()}
         </Card.Body>
         <Card.Footer className="text-muted">
           Added{" "}
@@ -48,4 +82,18 @@ class ItemCard extends React.Component {
   }
 }
 
-export default ItemCard;
+// const stateToProps = state => {
+//   return {
+//     cart: state.cart
+//   };
+// };
+
+export default connect(
+  // stateToProps
+  null,
+  {
+    addToCart,
+    removeFromCart,
+    toggleCart
+  }
+)(ItemCard);
