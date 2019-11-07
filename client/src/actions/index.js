@@ -36,3 +36,12 @@ export const toggleCart = item => {
     }
   };
 };
+export const editQuantityCart = item => {
+  return {
+    type: "edit_quantity_cart",
+    payload: {
+      id: item.id,
+      value: item.value
+    }
+  };
+};

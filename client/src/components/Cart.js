@@ -8,6 +8,7 @@ import {
   ButtonGroup,
   Button
 } from "react-bootstrap";
+import { editQuantityCart } from "../actions";
 
 class Cart extends React.Component {
   cartContent() {
@@ -24,13 +25,25 @@ class Cart extends React.Component {
         </td>
         <td>
           <ButtonGroup aria-label="Basic example">
-            <Button variant="outline-dark" size="sm">
+            <Button
+              variant="outline-dark"
+              size="sm"
+              onClick={() => {
+                this.props.editQuantityCart({ id: item.id, value: 1 });
+              }}
+            >
               ▲
             </Button>
             <Button variant="outline-dark" size="sm">
               {item.quantity}
             </Button>
-            <Button variant="outline-dark" size="sm">
+            <Button
+              variant="outline-dark"
+              size="sm"
+              onClick={() => {
+                this.props.editQuantityCart({ id: item.id, value: -1 });
+              }}
+            >
               ▼
             </Button>
           </ButtonGroup>
@@ -89,5 +102,5 @@ const stateToProps = state => ({
 
 export default connect(
   stateToProps,
-  null
+  { editQuantityCart }
 )(Cart);

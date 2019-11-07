@@ -4,14 +4,11 @@ export default function(state = null, action) {
     case "fetch_items":
       return action.payload || false;
     case "toggle_cart":
-      console.log("toggle_cart reducer");
-      newState = state.slice();
+      newState = [...state];
       index = newState.findIndex(item => item.id === action.payload.id);
       if (newState[index].status === "available")
         newState[index].status = "inCart";
       else newState[index].status = "available";
-      console.log("state", state[index]);
-      console.log("newState", newState[index]);
       return newState;
     default:
       return state;
