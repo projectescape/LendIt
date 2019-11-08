@@ -19,6 +19,7 @@ export const addToCart = item => {
     }
   };
 };
+
 export const removeFromCart = item => {
   return {
     type: "remove_from_cart",
@@ -27,8 +28,8 @@ export const removeFromCart = item => {
     }
   };
 };
+
 export const toggleCart = item => {
-  console.log("toggle_cart action", item.id);
   return {
     type: "toggle_cart",
     payload: {
@@ -36,6 +37,7 @@ export const toggleCart = item => {
     }
   };
 };
+
 export const editQuantityCart = item => {
   return {
     type: "edit_quantity_cart",
@@ -44,4 +46,19 @@ export const editQuantityCart = item => {
       value: item.value
     }
   };
+};
+
+export const placeOrder = () => async (dispatch, getState) => {
+  let res = await axios.post("/api/placeOrder", getState().cart);
+  let items = getState().items;
+  dispatch({ type: "empty_cart", payload: {} });
+  for (var i = 0; i < items.length; i++) {
+    for (var j = 0; j < res.length; j++) {
+      if (items[i].id === res[j].id) {
+        items[i].status = "lent";
+        res.slice(j, 1);
+      }
+    }
+  }
+  dispatch({ type: "fetch_items", payload: items });
 };

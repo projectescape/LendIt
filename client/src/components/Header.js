@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { fetchUser } from "../actions";
 import Cart from "./Cart";
+
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 
 class Header extends React.Component {
   navContent() {
@@ -55,8 +56,8 @@ class Header extends React.Component {
 
   render() {
     return (
-      <>
-        <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark">
+        <Container>
           <Navbar.Brand
             onClick={() => {
               this.props.history.push("/");
@@ -65,8 +66,8 @@ class Header extends React.Component {
             NavBar
           </Navbar.Brand>
           <Nav className="ml-auto">{this.navContent()}</Nav>
-        </Navbar>
-      </>
+        </Container>
+      </Navbar>
     );
   }
 }

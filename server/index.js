@@ -28,6 +28,7 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app);
 require("./routes/itemRoutes")(app);
+require("./routes/orderRoutes")(app);
 
 // To use the port heroku has decided for app
 // eslint-disable-next-line no-undef

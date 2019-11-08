@@ -20,6 +20,9 @@ export default function(state = [], action) {
       if (newState[index].quantity === 0) newState[index].quantity = 1;
       return newState;
 
+    case "empty_cart":
+      return [];
+
     default:
       return state;
   }

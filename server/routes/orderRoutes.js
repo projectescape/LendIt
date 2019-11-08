@@ -1,18 +1,28 @@
-let { Order } = require("../services/bookshelf");
+let { Order, Item } = require("../services/bookshelf");
 
 module.exports = app => {
   app.get("/api/orders", async (req, res) => {
-    console.log(req.user.email);
-    // const items = await new Item().fetchAll();
-    // res.send(items);
+    res.send(req.user.email);
   });
 
-  //   app.post("/api/items", async (req, res) => {
-  //     const item = await Item.forge({
-  //       ...req.body,
-  //       user: req.user.email,
-  //       status: "available"
-  //     }).save();
-  //     res.send(item);
-  //   });
+  app.post("/api/placeOrder", async (req, res) => {
+    const items = req.body.slice();
+    for (var i = 0; i < items.length; i++) {
+      await Order.forge({
+        user: req.user.email,
+        item: items[i].id,
+        status: "lent",
+        quantity: items[i].quantity
+      }).save();
+    }
+    for (var i = 0; i < items.length; i++) {
+      await Item.where("id", items[i].id).save(
+        {
+          status: "lent"
+        },
+        { patch: true }
+      );
+    }
+    res.send({ items });
+  });
 };

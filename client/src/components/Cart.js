@@ -8,7 +8,8 @@ import {
   ButtonGroup,
   Button
 } from "react-bootstrap";
-import { editQuantityCart } from "../actions";
+import { editQuantityCart, placeOrder } from "../actions";
+import { withRouter } from "react-router-dom";
 
 class Cart extends React.Component {
   cartContent() {
@@ -57,7 +58,14 @@ class Cart extends React.Component {
       return <h4 style={{ textAlign: "center", width: "100%" }}>Cart Empty</h4>;
     }
     return (
-      <Button variant="info" block>
+      <Button
+        variant="info"
+        block
+        onClick={() => {
+          this.props.placeOrder();
+          this.props.history.push("/orders");
+        }}
+      >
         Place Order
       </Button>
     );
@@ -85,7 +93,7 @@ class Cart extends React.Component {
     return (
       <>
         <OverlayTrigger
-          trigger={["click"]}
+          trigger={["focus"]}
           placement="bottom"
           overlay={this.popover()}
         >
@@ -100,7 +108,9 @@ const stateToProps = state => ({
   cart: state.cart
 });
 
-export default connect(
-  stateToProps,
-  { editQuantityCart }
-)(Cart);
+export default withRouter(
+  connect(
+    stateToProps,
+    { editQuantityCart, placeOrder }
+  )(Cart)
+);
