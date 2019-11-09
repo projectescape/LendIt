@@ -2,6 +2,7 @@ export default function(state = null, action) {
   let newState, index;
   switch (action.type) {
     case "fetch_items":
+      console.log("new item list", action.payload);
       return action.payload || false;
 
     case "toggle_cart":

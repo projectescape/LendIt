@@ -49,14 +49,16 @@ export const editQuantityCart = item => {
 };
 
 export const placeOrder = () => async (dispatch, getState) => {
-  let res = await axios.post("/api/placeOrder", getState().cart);
-  let items = getState().items;
-  dispatch({ type: "empty_cart", payload: {} });
-  for (var i = 0; i < items.length; i++) {
-    for (var j = 0; j < res.length; j++) {
-      if (items[i].id === res[j].id) {
-        items[i].status = "lent";
-        res.slice(j, 1);
+  let { items, cart } = getState();
+  await axios.post("/api/placeOrder", cart);
+  await dispatch({ type: "empty_cart", payload: {} });
+  console.log("items", items);
+  console.log("cart", cart);
+  for (var j = 0; j < cart.length; j++) {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id === cart[j].id) {
+        items.splice(i, 1);
+        break;
       }
     }
   }

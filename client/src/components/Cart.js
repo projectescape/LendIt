@@ -93,7 +93,7 @@ class Cart extends React.Component {
     return (
       <>
         <OverlayTrigger
-          trigger={["focus"]}
+          trigger={["click"]}
           placement="bottom"
           overlay={this.popover()}
         >
