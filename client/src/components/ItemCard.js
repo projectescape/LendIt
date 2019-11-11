@@ -82,14 +82,7 @@ class ItemCard extends React.Component {
   }
 }
 
-// const stateToProps = state => {
-//   return {
-//     cart: state.cart
-//   };
-// };
-
 export default connect(
-  // stateToProps
   null,
   {
     addToCart,

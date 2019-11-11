@@ -2,7 +2,8 @@ let { Order, Item } = require("../services/bookshelf");
 
 module.exports = app => {
   app.get("/api/orders", async (req, res) => {
-    res.send(req.user.email);
+    const orders = await Order.where("user", req.user.email).fetchAll();
+    res.send(orders);
   });
 
   app.post("/api/placeOrder", async (req, res) => {

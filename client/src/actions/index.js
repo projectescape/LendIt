@@ -64,3 +64,9 @@ export const placeOrder = () => async (dispatch, getState) => {
   }
   dispatch({ type: "fetch_items", payload: items });
 };
+
+export const fetchOrders = () => async dispatch => {
+  const { data } = await axios.get("/api/orders");
+  console.log(data);
+  dispatch({ type: "fetch_orders", payload: data });
+};
