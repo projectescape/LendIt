@@ -14,6 +14,7 @@ class Header extends React.Component {
 
     return (
       <>
+        <Cart />
         <NavDropdown
           title={"Welcome " + this.props.auth.firstName}
           id="basic-nav-dropdown"
@@ -49,7 +50,6 @@ class Header extends React.Component {
             Logout
           </NavDropdown.Item>
         </NavDropdown>
-        <Cart />
       </>
     );
   }

@@ -26,4 +26,22 @@ module.exports = app => {
     }
     res.send({ items });
   });
+
+  app.put("/api/returnItem", async (req, res) => {
+    console.log(req.body);
+    const order = await Order.where("id", req.body.id).save(
+      {
+        status: "returned",
+        returned_at: new Date()
+      },
+      { patch: true }
+    );
+    await Item.where("id", order.attributes.item).save(
+      {
+        status: "available"
+      },
+      { patch: true }
+    );
+    res.send(order);
+  });
 };

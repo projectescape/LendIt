@@ -62,11 +62,28 @@ export const placeOrder = () => async (dispatch, getState) => {
       }
     }
   }
-  dispatch({ type: "fetch_items", payload: items });
+  await dispatch({ type: "fetch_items", payload: items });
+  const { data } = await axios.get("/api/orders");
+  dispatch({ type: "fetch_orders", payload: data });
 };
 
 export const fetchOrders = () => async dispatch => {
   const { data } = await axios.get("/api/orders");
-  console.log(data);
   dispatch({ type: "fetch_orders", payload: data });
+};
+
+export const returnItem = id => async (dispatch, getState) => {
+  await axios.put("/api/returnItem", { id });
+  let { orders } = getState();
+  const index = orders.findIndex(item => item.id === id);
+  orders[index].status = "returned";
+  await dispatch({ type: "return_item", payload: orders });
+  if (getState().items === null) {
+    const res = await axios.get("/api/items");
+    await dispatch({ type: "fetch_items", payload: res.data });
+  }
+  let { items } = getState();
+  const iIndex = items.findIndex(item => item.id === orders[index].item);
+  items[iIndex].status = "available";
+  dispatch({ type: "fetch_items", payload: items });
 };
