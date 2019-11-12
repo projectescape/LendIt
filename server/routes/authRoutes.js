@@ -1,5 +1,6 @@
 const passport = require("passport");
 const { User } = require("../services/bookshelf");
+const checkLogin = require("../services/checkLogin");
 
 module.exports = app => {
   app.get(
@@ -21,11 +22,11 @@ module.exports = app => {
     res.redirect("/auth/Success");
   });
 
-  app.get("/api/current_user", (req, res) => {
+  app.get("/api/current_user", checkLogin, (req, res) => {
     res.send(req.user);
   });
 
-  app.put("/api/user", async (req, res) => {
+  app.put("/api/user", checkLogin, async (req, res) => {
     const user = await User.where("email", req.user.email).save(
       {
         ...req.body

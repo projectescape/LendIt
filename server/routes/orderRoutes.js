@@ -1,12 +1,13 @@
 let { Order, Item } = require("../services/bookshelf");
+const checkLogin = require("../services/checkLogin");
 
 module.exports = app => {
-  app.get("/api/orders", async (req, res) => {
+  app.get("/api/orders", checkLogin, async (req, res) => {
     const orders = await Order.where("user", req.user.email).fetchAll();
     res.send(orders);
   });
 
-  app.post("/api/placeOrder", async (req, res) => {
+  app.post("/api/placeOrder", checkLogin, async (req, res) => {
     const items = req.body.slice();
     for (var i = 0; i < items.length; i++) {
       await Order.forge({
@@ -27,7 +28,7 @@ module.exports = app => {
     res.send({ items });
   });
 
-  app.put("/api/returnItem", async (req, res) => {
+  app.put("/api/returnItem", checkLogin, async (req, res) => {
     const order = await Order.where("id", req.body.id).save(
       {
         status: "returned",
