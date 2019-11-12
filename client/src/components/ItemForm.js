@@ -2,12 +2,15 @@ import React from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import axios from "axios";
 import { withRouter } from "react-router";
+import { fetchItems } from "../actions";
+import { connect } from "react-redux";
 
 class ItemForm extends React.Component {
   state = {
     itemName: "",
     price: null,
-    description: ""
+    description: "",
+    image: ""
   };
 
   handleInputChange = event => {
@@ -20,15 +23,17 @@ class ItemForm extends React.Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
-    axios
+    await axios
       .post("/api/items", {
         price: this.state.price,
         description: this.state.description,
-        name: this.state.itemName
+        name: this.state.itemName,
+        image: this.state.image
       })
       .then(() => {
+        this.props.fetchItems();
         this.props.history.push("/");
       })
       .catch(err => console.error(err));
@@ -47,6 +52,17 @@ class ItemForm extends React.Component {
               value={this.state.itemName}
               onChange={this.handleInputChange}
               placeholder="Enter Name"
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="formGroupEImage">
+            <Form.Label>Image Url</Form.Label>
+            <Form.Control
+              type="text"
+              name="image"
+              value={this.state.image}
+              onChange={this.handleInputChange}
+              placeholder="Enter Image URL"
               required
             />
           </Form.Group>
@@ -100,4 +116,4 @@ class ItemForm extends React.Component {
   }
 }
 
-export default withRouter(ItemForm);
+export default withRouter(connect(null, { fetchItems })(ItemForm));

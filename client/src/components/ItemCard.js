@@ -22,7 +22,9 @@ class ItemCard extends React.Component {
           Description
         </Button>
         <Collapse in={this.state.open}>
-          <div id="example-collapse-text ">{this.props.item.description}</div>
+          <div id="example-collapse-text " style={{ whiteSpace: "pre-line" }}>
+            {this.props.item.description}
+          </div>
         </Collapse>
       </>
     );
@@ -64,7 +66,7 @@ class ItemCard extends React.Component {
   render() {
     return (
       <Card>
-        <Card.Img variant="top" src="https://source.unsplash.com/random" />
+        <Card.Img variant="top" src={this.props.item.image} />
         <Card.Body>
           <Card.Title className="diplay-4">{this.props.item.name}</Card.Title>
           <Card.Text className="text-success font-weight-bold">

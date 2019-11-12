@@ -9,6 +9,7 @@ import ItemForm from "./ItemForm";
 import ItemList from "./ItemList";
 import OrderList from "./OrderList";
 import UserForm from "./UserForm";
+import Landing from "./Landing";
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,8 +17,7 @@ class App extends React.Component {
   }
   renderRoot() {
     if (this.props.auth === false || this.props.auth === null) {
-      // Replace with Landing
-      return null;
+      return <Landing />;
     } else {
       if (this.props.auth.mobile === null) {
         return <Redirect to="/user/edit" />;
@@ -55,7 +55,4 @@ const stateToProps = state => {
   return { auth: state.auth };
 };
 
-export default connect(
-  stateToProps,
-  { fetchUser }
-)(App);
+export default connect(stateToProps, { fetchUser })(App);

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchUser } from "../actions";
 import Cart from "./Cart";
+import Logo from "../images/lendittext.jpg";
 
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 
@@ -63,7 +64,8 @@ class Header extends React.Component {
               this.props.history.push("/");
             }}
           >
-            LendIt
+            {/* LendIt */}
+            <img src={Logo} height="40" alt="LendIt" />
           </Navbar.Brand>
           <Nav className="ml-auto">{this.navContent()}</Nav>
         </Container>
