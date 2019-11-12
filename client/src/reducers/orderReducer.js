@@ -3,8 +3,7 @@ export default function(state = null, action) {
     case "fetch_orders":
       return [...action.payload];
 
-    case "return_item":
-      console.log("inside return_item reducer");
+    case "return_order":
       return [...action.payload];
 
     default:

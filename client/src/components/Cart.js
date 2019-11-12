@@ -6,12 +6,28 @@ import {
   Nav,
   Table,
   ButtonGroup,
-  Button
+  Button,
+  Spinner
 } from "react-bootstrap";
 import { editQuantityCart, placeOrder } from "../actions";
 import { withRouter } from "react-router-dom";
 
 class Cart extends React.Component {
+  state = { loading: false };
+
+  renderButtonContent() {
+    if (this.state.loading)
+      return (
+        <Spinner
+          as="span"
+          animation="border"
+          role="status"
+          aria-hidden="true"
+        />
+      );
+    return "Place Order";
+  }
+
   cartContent() {
     return this.props.cart.map((item, index) => (
       <tr key={item.id}>
@@ -61,12 +77,14 @@ class Cart extends React.Component {
       <Button
         variant="info"
         block
-        onClick={() => {
-          this.props.placeOrder();
-          this.props.history.push("/orders");
+        onClick={async () => {
+          this.setState({ loading: true });
+          await this.props.placeOrder();
+          await this.props.history.push("/orders");
+          this.setState({ loading: false });
         }}
       >
-        Place Order
+        {this.renderButtonContent()}
       </Button>
     );
   }
@@ -109,8 +127,5 @@ const stateToProps = state => ({
 });
 
 export default withRouter(
-  connect(
-    stateToProps,
-    { editQuantityCart, placeOrder }
-  )(Cart)
+  connect(stateToProps, { editQuantityCart, placeOrder })(Cart)
 );

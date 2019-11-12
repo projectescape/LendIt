@@ -52,12 +52,10 @@ export const placeOrder = () => async (dispatch, getState) => {
   let { items, cart } = getState();
   await axios.post("/api/placeOrder", cart);
   await dispatch({ type: "empty_cart", payload: {} });
-  console.log("items", items);
-  console.log("cart", cart);
   for (var j = 0; j < cart.length; j++) {
     for (var i = 0; i < items.length; i++) {
       if (items[i].id === cart[j].id) {
-        items.splice(i, 1);
+        items[i].status = "lent";
         break;
       }
     }
@@ -77,7 +75,7 @@ export const returnItem = id => async (dispatch, getState) => {
   let { orders } = getState();
   const index = orders.findIndex(item => item.id === id);
   orders[index].status = "returned";
-  await dispatch({ type: "return_item", payload: orders });
+  await dispatch({ type: "return_order", payload: orders });
   if (getState().items === null) {
     const res = await axios.get("/api/items");
     await dispatch({ type: "fetch_items", payload: res.data });

@@ -63,7 +63,7 @@ class Header extends React.Component {
               this.props.history.push("/");
             }}
           >
-            NavBar
+            LendIt
           </Navbar.Brand>
           <Nav className="ml-auto">{this.navContent()}</Nav>
         </Container>
@@ -76,9 +76,4 @@ const stateToProps = state => {
   return { auth: state.auth };
 };
 
-export default withRouter(
-  connect(
-    stateToProps,
-    { fetchUser }
-  )(Header)
-);
+export default withRouter(connect(stateToProps, { fetchUser })(Header));

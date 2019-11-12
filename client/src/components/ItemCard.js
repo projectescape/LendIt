@@ -75,18 +75,15 @@ class ItemCard extends React.Component {
         </Card.Body>
         <Card.Footer className="text-muted">
           Added{" "}
-          {moment(this.props.item.created_at, "YYYY-MM-DD HH:mm:ss").fromNow()}
+          {moment(this.props.item.updated_at, "YYYY-MM-DD HH:mm:ss").fromNow()}
         </Card.Footer>
       </Card>
     );
   }
 }
 
-export default connect(
-  null,
-  {
-    addToCart,
-    removeFromCart,
-    toggleCart
-  }
-)(ItemCard);
+export default connect(null, {
+  addToCart,
+  removeFromCart,
+  toggleCart
+})(ItemCard);

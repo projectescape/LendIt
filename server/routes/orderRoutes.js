@@ -28,7 +28,6 @@ module.exports = app => {
   });
 
   app.put("/api/returnItem", async (req, res) => {
-    console.log(req.body);
     const order = await Order.where("id", req.body.id).save(
       {
         status: "returned",
