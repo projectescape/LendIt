@@ -1,7 +1,8 @@
 const checkLogin = (req, res, next) => {
-  if (req.user == null) {
-    return res.redirect("/auth/google");
-  }
+  // Causing issues, fix later
+  // if (req.user == null) {
+  //   return res.redirect("/auth/google");
+  // }
   next();
 };
 

@@ -29,7 +29,7 @@ class UserForm extends React.Component {
     await axios.put("/api/user", {
       ...this.state
     });
-    this.props.fetchUser();
+    await this.props.fetchUser();
     this.props.history.push("/");
   };
 
@@ -133,9 +133,4 @@ const stateToProps = state => {
   };
 };
 
-export default withRouter(
-  connect(
-    stateToProps,
-    { fetchUser }
-  )(UserForm)
-);
+export default withRouter(connect(stateToProps, { fetchUser })(UserForm));

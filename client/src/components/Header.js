@@ -45,6 +45,7 @@ class Header extends React.Component {
           <NavDropdown.Item
             onClick={async () => {
               await fetch("/api/logout");
+              this.props.history.push("/");
               this.props.fetchUser();
             }}
           >
