@@ -60,7 +60,7 @@ class OrderCard extends React.Component {
         <Card>
           <Card.Header className="text-muted">{`Order id : #${this.props.order.id}`}</Card.Header>
           <Card.Body>
-            <Card.Title>{this.props.order.item}</Card.Title>
+            <Card.Title>{this.props.order.item.name}</Card.Title>
             {/* <Card.Text> */}
             <div>{`Rent Duration : ${this.props.order.quantity} month`}</div>
             {this.renderReturnDate()}

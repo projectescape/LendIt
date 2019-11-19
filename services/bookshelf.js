@@ -26,7 +26,10 @@ var Item = bookshelf.Model.extend({
 var Order = bookshelf.Model.extend({
   requireFetch: false,
   tableName: "order",
-  hasTimestamps: true
+  hasTimestamps: true,
+  item() {
+    return this.belongsTo(Item, "item", "id");
+  }
 });
 
 module.exports = { User, Item, Order };

@@ -3,7 +3,9 @@ const checkLogin = require("../services/checkLogin");
 
 module.exports = app => {
   app.get("/api/orders", checkLogin, async (req, res) => {
-    const orders = await Order.where("user", req.user.email).fetchAll();
+    const orders = await Order.where("user", req.user.email).fetchAll({
+      withRelated: ["item"]
+    });
     res.send(orders);
   });
 

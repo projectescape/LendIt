@@ -22,6 +22,13 @@ class Header extends React.Component {
         >
           <NavDropdown.Item
             onClick={() => {
+              this.props.history.push("/");
+            }}
+          >
+            Items
+          </NavDropdown.Item>
+          <NavDropdown.Item
+            onClick={() => {
               this.props.history.push("/orders");
             }}
           >

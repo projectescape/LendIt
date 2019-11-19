@@ -18,8 +18,14 @@ class OrderList extends React.Component {
       );
     }
     return this.props.orders.map(order => {
+      if (document.documentElement.clientWidth > 900)
+        return (
+          <div key={order.id} className="mb-3 p-3 w-50 d-inline-block">
+            <OrderCard order={order} />
+          </div>
+        );
       return (
-        <div key={order.id} className="mb-3 p-3 w-50 d-inline-block">
+        <div key={order.id} className="mb-3 p-3 w-100 d-inline-block">
           <OrderCard order={order} />
         </div>
       );
