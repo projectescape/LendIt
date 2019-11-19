@@ -32,7 +32,7 @@ class Cart extends React.Component {
     return this.props.cart.map((item, index) => (
       <tr key={item.id}>
         <td className="text-center">
-          <h4>{index}</h4>
+          <h4>{index + 1}</h4>
         </td>
         <td className="text-center">
           <h4>{item.name}</h4>

@@ -82,6 +82,6 @@ export const returnItem = id => async (dispatch, getState) => {
   }
   let { items } = getState();
   const iIndex = items.findIndex(item => item.id === orders[index].item);
-  items[iIndex].status = "available";
+  if (iIndex === undefined) items[iIndex].status = "available";
   dispatch({ type: "fetch_items", payload: items });
 };
